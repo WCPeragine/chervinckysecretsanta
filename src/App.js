@@ -6,7 +6,6 @@ import {
   Switch
 } from 'react-router-dom';
 
-import ImageBackground from './components/background/ImageBackground';
 import HeaderComponent from './components/header/HeaderComponent';
 import HomeComponent from './components/main/HomeComponent';
 import WishListComponent from './components/main/WishListComponent';
@@ -23,9 +22,6 @@ class App extends Component {
 
         <Router>
           <div>
-            <ImageBackground/>
-            
-
             <HeaderComponent/>
 
             <Switch>
