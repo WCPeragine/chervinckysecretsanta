@@ -1,7 +1,8 @@
 import React from 'react';
+import DiceComponent from './DiceComponent';
 
 function HomeComponent (){
- return <h1>Home Component</h1>
+ return <DiceComponent/>
 }
 
 export default HomeComponent;
