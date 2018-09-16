@@ -50,7 +50,7 @@ function DiceComponent(props){
     <div id="wrapper">
       <input className="dice-input" id="roll" name="roll" type="checkbox" onClick={diceStop}/>
       <label className="dice-label" id="roll-label" htmlFor="roll"><span></span></label>
-      {giftee_name ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span>}
+      {giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span>}
       <DieComponent group_id={group_id}/>
 
     </div>

@@ -37,13 +37,13 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      isSignedIn: true,
+      isSignedIn: false,
       giftee_name: '',
       user:{
-        user_id: 8,
+        user_id: '',
         name: '',
-        spouse_id: 7,
-        group_id: 4,
+        spouse_id: '',
+        group_id: '',
         gender: '',
         giftee_id: '',
   
@@ -59,7 +59,8 @@ class App extends Component {
   loadUser = (data) => {
     if(data){
       const {user_id, name, spouse_id, group_id, gender, giftee_id} = data;
-      const giftee_name = this.getGifteeName(giftee_id);
+      let giftee_name = this.getGifteeName(giftee_id);
+      if(giftee_name === undefined){giftee_name = 'Giftee';}
       this.setState({
         isSignedIn: true,
         signInEmail: '',
@@ -91,14 +92,15 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.loadUser(data);
-        console.log(data);
       })
     }
+
 
   render() {
     const { state, loadUser, onGifteeSelect } = this;
     const { isSignedIn, user, giftee_name  } = state;
     const { user_id, name, spouse_id, group_id, gender, giftee_id } = user;
+    fetch('https://cherv-secret-santa.herokuapp.com/', {})
 
     return (
 
