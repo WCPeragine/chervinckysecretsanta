@@ -1,0 +1,56 @@
+#parchment {
+	background: url('parchment.jpg');
+	background-size: cover;
+	margin: auto;
+	height: 175vh;
+	width: 50vw;
+	border-radius: 10px;
+}
+
+.coming-soon {
+	font-family: 'Carter One', cursive;
+	font-size: 5vmax;
+	text-align: center;
+	color: #ff1a1a;
+	text-shadow:
+    	-1px -1px 0 #000,  
+    	1px -1px 0 #000,
+    	-1px 1px 0 #000,
+    	1px 1px 0 #000;
+}
+
+ul#wishlist-ul {
+	padding: 3vw 3vw 3vw 8vw;
+}
+
+li.wishlist-li {
+	font-family: 'Pacifico', cursive;
+	list-style-type: none;
+	color: black;
+	margin-bottom: 2.5vw;
+	text-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5);
+
+	font-size: 3vw;
+	line-height: 3.5vw;
+}
+
+.wishlist-li a {
+	padding: 0;
+	color: black;
+	font-size: 1.5vw;
+}
+
+.wishlist-li label {
+}
+
+@media only screen and (max-width: 1000px){
+	#parchment{
+		width: 70vw;
+	}
+}
+
+@media only screen and (max-width: 750px){
+	#parchment{
+		width: 85vw;
+	}
+}

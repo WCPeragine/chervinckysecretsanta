@@ -1,0 +1,154 @@
+@keyframes fly-in {
+    0% { transform: 
+        translateX(80vw) 
+        translateY(40vh) 
+        translateZ(var(--dice-z)) translateZ(-2400px) 
+        rotateX(540deg) rotateY(90deg) rotateZ(90deg); }
+    8% { transform: 
+        translateX(40vw) 
+        translateY(80vh) 
+        translateZ(var(--dice-z)) translateZ(-2200px) 
+        rotateX(630deg) rotateY(180deg) rotateZ(135deg); }
+    17% { transform: 
+        translateX(0vw) 
+        translateY(120vh) 
+        translateZ(var(--dice-z)) translateZ(-2000px) 
+        rotateX(720deg) rotateY(270deg) rotateZ(180deg); }
+    25% { transform: 
+        translateX(-50vw) 
+        translateY(160vh) 
+        translateZ(var(--dice-z)) translateZ(-1800px) 
+        rotateX(630deg) rotateY(180deg) rotateZ(135deg); }
+    33% { transform: 
+        translateX(-110vw) 
+        translateY(200vh) 
+        translateZ(var(--dice-z)) translateZ(-1600px) 
+        rotateX(540deg) rotateY(90deg) rotateZ(90deg); }
+    41% { transform: 
+        translateX(-50vw) 
+        translateY(240vh) 
+        translateZ(var(--dice-z)) translateZ(-1400px) 
+        rotateX(450deg) rotateY(0deg) rotateZ(45deg); }
+    50% { transform: 
+        translateX(0vw) 
+        translateY(260vh) 
+        translateZ(var(--dice-z)) translateZ(-1200px) 
+        rotateX(360deg) rotateY(90deg) rotateZ(90deg); }
+    58% { transform: 
+        translateX(40vw) 
+        translateY(230vh) 
+        translateZ(var(--dice-z)) translateZ(-1000px) 
+        rotateX(180deg) rotateY(180deg) rotateZ(135deg); }
+    66% { transform: 
+        translateX(80vw) 
+        translateY(200vh) 
+        translateZ(var(--dice-z)) translateZ(-800px) 
+        rotateX(360deg) rotateY(270deg) rotateZ(180deg); }
+    74% { transform: 
+        translateX(60vw) 
+        translateY(100vh) 
+        translateZ(var(--dice-z)) translateZ(-600px) 
+        rotateX(450deg) rotateY(360deg) rotateZ(135deg); }
+    83% { transform: 
+        translateX(40vw) 
+        translateY(220vh) 
+        translateZ(var(--dice-z)) translateZ(-400px) 
+        rotateX(360deg) rotateY(270deg) rotateZ(90deg); }
+    91% { transform: 
+        translateX(20vw) 
+        translateY(110vh) 
+        translateZ(var(--dice-z)) translateZ(-200px) 
+        rotateX(180deg) rotateY(180deg) rotateZ(45deg); }
+    100% { transform: 
+        translateX(0vw) 
+        translateY(180vh) 
+        translateZ(var(--dice-z)) translateZ(0px) 
+        rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+}
+
+@keyframes show {
+    0%{margin-top: 100;}
+    100%{margin-top: 100;}
+}
+
+
+#platformTwo {
+  margin-top: 100px;
+}
+
+#diceTwo span {
+    position:absolute;
+    margin:100px 0 0 100px;
+    display: block;
+    font-size: 2.5em;
+    padding: 10px;
+}
+#diceTwo {
+    position: absolute;
+    top: -160vh;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    font-family: 'Pacifico', cursive;
+}
+
+#diceTwo .cover, #diceTwo .inner {
+    background: #e0e0e0;
+    box-shadow: none;
+}
+#diceTwo .cover {
+    border-radius: 0;
+    transform: translateZ(0px);
+}
+#diceTwo .cover.x {
+    transform: rotateY(90deg);
+}
+#diceTwo .cover.z {
+    transform: rotateX(90deg);
+}
+#diceTwo .front  {
+    transform: translateZ(100px);
+}
+#diceTwo .front.inner  {
+    transform: translateZ(98px);
+}
+#diceTwo .back {
+    transform: rotateX(-180deg) translateZ(100px);
+}
+#diceTwo .back.inner {
+    transform: rotateX(-180deg) translateZ(98px);
+}
+#diceTwo .right {
+    transform: rotateY(90deg) translateZ(100px);
+}
+#diceTwo .right.inner {
+    transform: rotateY(90deg) translateZ(98px);
+}
+#diceTwo .left {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+#diceTwo .left.inner {
+    transform: rotateY(-90deg) translateZ(98px);
+}
+#diceTwo .top {
+    transform: rotateX(90deg) translateZ(100px);
+}
+#diceTwo .top.inner {
+    transform: rotateX(90deg) translateZ(98px);
+}
+#diceTwo .bottom {
+    transform: rotateX(-90deg) translateZ(100px);
+}
+#diceTwo .bottom.inner {
+    transform: rotateX(-90deg) translateZ(98px);
+}
+
+
+
+#diceTwo {
+    animation: fly-in 1.6s linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+    z-index: 2;
+}
+

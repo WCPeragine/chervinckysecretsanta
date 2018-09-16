@@ -1,0 +1,40 @@
+.background {
+	z-index: -1;
+	width: 100%;
+	height: auto;
+
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+
+@media only screen and (max-aspect-ratio: 1920/1280) {
+	.background {
+		width: auto;
+		height: 100%;
+	}
+}
+
+@media only screen and (max-aspect-ratio: 1920/1920) {
+	.background-center {
+		width: auto;
+		height: 100%;
+		right: -50vw;
+	}
+}
+
+@media only screen and (max-aspect-ratio: 1280/1920) {
+	.background-center {
+		width: auto;
+		height: 100%;
+		right: -75vw;
+	}
+}
+
+@media only screen and (max-aspect-ratio: 450/825) {
+	.background-center {
+		width: auto;
+		height: 100%;
+		right: -110vw;
+	}
+}
