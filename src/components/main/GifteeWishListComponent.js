@@ -7,7 +7,7 @@ function GifteeWishListComponent (){
  return (
  	<div>
  		<GifteeWishListBackground/>
- 		<WishListCard/>
+ 		<p className="coming-soon">COMING SOON</p>
 	</div>
  )
 }
