@@ -1,8 +1,8 @@
 import React from 'react';
-import RegisterBackground from './background/RegisterBackground';
+import HomeBackground from './background/HomeBackground';
 import './css/signin.css';
 
-class RegisterComponent extends React.Component {
+class SignInComponent extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -11,7 +11,7 @@ class RegisterComponent extends React.Component {
 		}
 	}
 
-	onEmailChange = (event) => {
+	onEmailChange =(event) => {
 		this.setState({signInEmail: event.target.value});
 	}
 
@@ -19,8 +19,8 @@ class RegisterComponent extends React.Component {
 		this.setState({signInPassword: event.target.value});
 	}
 
-	onRegisterSubmit = () => {
-		fetch('https://cherv-secret-santa.herokuapp.com/register', {
+	onSignInSubmit = () => {
+		fetch('https://cherv-secret-santa.herokuapp.com/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -38,12 +38,11 @@ class RegisterComponent extends React.Component {
 	}
 
 render(){
-
 	 return (
 	 	<div>
-	 		<RegisterBackground/>
-	 		<form className="signInForm">
-	 			<div className="welcomeDiv">Please Enter Your Password To Register
+	 		<HomeBackground/>
+	 		<form className="signInForm" action='/' method='post'>
+	 			<div className="welcomeDiv">Please Sign In
 	 			</div>
 	 			<div className="signInInfoDiv">
 	 				<div className="infoDivSpacer"> </div>
@@ -54,8 +53,8 @@ render(){
 			 		<div className="signInInputsDiv">
 			 			<input 
 			 				name="emailInput" 
-			 				type="text" 
-			 				onChange={this.onEmailChange}
+			 				type="text"
+			 				onChange={this.onEmailChange} 
 			 				className="signInInputs" 
 			 				placeholder="Please Enter Your Email" 
 			 				required
@@ -69,14 +68,12 @@ render(){
 			 				required
 			 			/>
 			 		</div>
-			 		<div className="infoDivSpacer">
-			 		</div>
+			 		<div className="infoDivSpacer"> </div>
 		 		</div>
 		 		<div className="signInSubmitDiv">
-		 			<input type="button" className="mask" value=""></input>
 		 			<input 
 		 				type="button" 
-		 				onClick={this.onRegisterSubmit}
+		 				onClick={this.onSignInSubmit}
 		 				className="signInSubmit" 
 		 				value="Sign In"
 		 			></input>
@@ -87,4 +84,4 @@ render(){
 	}
 }
 
-export default RegisterComponent;
+export default SignInComponent;

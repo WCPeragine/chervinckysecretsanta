@@ -8,29 +8,160 @@ import {
 
 import HeaderComponent from './components/header/HeaderComponent';
 import HomeComponent from './components/main/HomeComponent';
-import WishListComponent from './components/main/WishListComponent';
+import MyWishListComponent from './components/main/MyWishListComponent';
+import GifteeWishListComponent from './components/main/GifteeWishListComponent';
 import RegisterComponent from './components/main/RegisterComponent';
+import SignInComponent from './components/main/SignInComponent';
 import NotFoundComponent from './components/main/NotFoundComponent';
 import FooterComponent from './components/footer/FooterComponent';
 
 import './app.css';
 
 
+const initialState = {
+  isSignedIn: false,
+      giftee_name: 'Giftee',
+      user:{
+        user_id: '',
+        name: 'Santa',
+        spouse_id: '',
+        group_id: '',
+        gender: '',
+        giftee_id: '',
+  }
+}
+
+
+
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      isSignedIn: true,
+      giftee_name: '',
+      user:{
+        user_id: 8,
+        name: '',
+        spouse_id: 7,
+        group_id: 4,
+        gender: '',
+        giftee_id: '',
+  
+      }
+    }
+  }
+
+  getGifteeName = (num) => {
+    const namesList = ["Chance", "Stacy", "Mark", "Amy", "Bob", "Polly", "Steve", "Erin"];
+    return namesList[num-1]
+  }
+
+  loadUser = (data) => {
+    if(data){
+      const {user_id, name, spouse_id, group_id, gender, giftee_id} = data;
+      const giftee_name = this.getGifteeName(giftee_id);
+      this.setState({
+        isSignedIn: true,
+        signInEmail: '',
+        signInPassword: '',
+        giftee_name,
+        user: {
+          user_id,
+          spouse_id,
+          name,
+          group_id,
+          gender
+      }})
+    } else {
+      this.setState(this.state)
+    }
+  }
+
+
+    onGifteeSelect = (user_id, spouse_id, group_id) => {
+      fetch('https://cherv-secret-santa.herokuapp.com/giftee/select', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          user_id,
+          spouse_id,
+          group_id
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.loadUser(data);
+        console.log(data);
+      })
+    }
+
   render() {
+    const { state, loadUser, onGifteeSelect } = this;
+    const { isSignedIn, user, giftee_name  } = state;
+    const { user_id, name, spouse_id, group_id, gender, giftee_id } = user;
+
     return (
 
         <Router>
           <div>
-            <HeaderComponent/>
+            <HeaderComponent isSignedIn={isSignedIn} name={name} giftee_name={giftee_name}/>
 
-            <Switch>
-              <Route exact path='/' component={HomeComponent}/>
-              <Route exact path='/wishlist' component={WishListComponent}/>
-              <Route exact path='/register' component={RegisterComponent}/>
-              <Route component={NotFoundComponent}/>
-            </Switch>
-
+            { isSignedIn
+              ?<Switch>
+                <Route 
+                  exact path='/' 
+                  render={(props) => 
+                    <HomeComponent {...props} 
+                      onGifteeSelect={onGifteeSelect} 
+                      user_id={user_id} 
+                      spouse_id={spouse_id} 
+                      group_id={group_id}
+                      giftee_name={giftee_name}
+                    />}
+                />
+                <Route 
+                  exact path='/signin' 
+                  render={(props) => 
+                    <HomeComponent {...props} 
+                      onGifteeSelect={onGifteeSelect} 
+                      user_id={user_id} 
+                      spouse_id={spouse_id} 
+                      group_id={group_id}
+                      giftee_name={giftee_name}
+                    />}
+                />
+                <Route 
+                  exact path='/register' 
+                  render={(props) => 
+                    <HomeComponent {...props} 
+                      onGifteeSelect={onGifteeSelect} 
+                      user_id={user_id} 
+                      spouse_id={spouse_id} 
+                      group_id={group_id}
+                      giftee_name={giftee_name}
+                    />}
+                />
+                <Route exact path='/mywishlist' component={MyWishListComponent}/>
+                <Route exact path='/gifteewishlist' component={GifteeWishListComponent}/>
+                <Route component={NotFoundComponent}/>
+              </Switch>
+              :<Switch>
+                <Route
+                  exact path='/'
+                  render={(props) => <SignInComponent {...props} loadUser={loadUser} />}
+                />
+                <Route
+                  exact path='/signin'
+                  render={(props) => <SignInComponent {...props} loadUser={loadUser} />}
+                />
+                <Route 
+                  exact path='/register' 
+                  render={(props) => <RegisterComponent {...props} loadUser={loadUser} />}
+                />
+                <Route component={NotFoundComponent}/>
+              </Switch>
+            }
+          
             <FooterComponent/>
           </div>
         </Router>

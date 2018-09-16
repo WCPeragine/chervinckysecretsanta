@@ -1,9 +1,12 @@
-body {
-  color: white;
-  text-align: center;
-  text-shadow:
-    -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+@import url('https://fonts.googleapis.com/css?family=Carter+One|Pacifico');
+
+header {
+	font-family: 'Carter One', cursive;
+  	color: white;
+ 	text-align: center;
+  	text-shadow:
+    	-1px -1px 0 #000,  
+    	1px -1px 0 #000,
+    	-1px 1px 0 #000,
+    	1px 1px 0 #000;
 }
