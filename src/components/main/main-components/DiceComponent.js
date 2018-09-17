@@ -5,7 +5,8 @@ import './dice.css';
 
 function DiceComponent(props){
 
-  const {onGifteeSelect, user_id, spouse_id, group_id, giftee_name} = props;
+  const { onGifteeSelect, user, roll,  giftee_name } = props;
+  const { user_id, spouse_id, group_id } = user;
 
   let fullGiftees = ["Chance", "Stacy", "Mark", "Amy", "Bob", "Polly", "Steve", "Erin"];
   let giftees = [];
@@ -36,7 +37,7 @@ function DiceComponent(props){
       const die = document.getElementById('dice');
       const btnLabel = document.getElementById('roll-label');
 
-      if( !btn.checked ) {
+      if( !btn.checked && roll === true ) {
         die.classList.add("select")
         btnLabel.classList.add("select")
         btn.disabled = true;
@@ -50,9 +51,12 @@ function DiceComponent(props){
     <div id="wrapper">
       <input className="dice-input" id="roll" name="roll" type="checkbox" onClick={diceStop}/>
       <label className="dice-label" id="roll-label" htmlFor="roll"><span></span></label>
-      {giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span>}
-      <DieComponent group_id={group_id}/>
-
+      { roll === false
+        ? <span></span>
+        : giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span> 
+      }
+      { roll === true ? <DieComponent group_id={group_id}/> : <DieComponent giftee_name={giftee_name}/>}
+        
     </div>
   );
 }

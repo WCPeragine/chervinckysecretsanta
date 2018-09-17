@@ -2,7 +2,7 @@ import React from 'react';
 import './dice.css';
 
 function DieComponent (props){
-  const {group_id} = props;
+  const { group_id, giftee_name } = props;
   let giftees = [];
 
     switch(group_id) {
@@ -19,7 +19,9 @@ function DieComponent (props){
         giftees.push("Chance", "Stacy", "Mark", "Amy", "Bob", "Polly")
         break;
       default:
-        giftees = ["Chance", "Stacy", "Mark", "Amy", "Bob", "Polly", "Steve", "Erin"];
+        for (let i = 0; i < 6; i++){
+          giftees.push(giftee_name);
+        }
     }
 
     const gifteeInnerHtml = (num) => {

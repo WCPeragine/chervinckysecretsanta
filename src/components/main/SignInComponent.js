@@ -7,7 +7,8 @@ class SignInComponent extends React.Component{
 		super(props);
 		this.state = {
 			signInEmail: '',
-			signInPassword: ''
+			signInPassword: '',
+			errorMsg: 'Please Enter Your Password To Sign In'
 		}
 	}
 
@@ -24,7 +25,7 @@ class SignInComponent extends React.Component{
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				email: this.state.signInEmail,
+				email: this.state.signInEmail.toLowerCase(),
 				password: this.state.signInPassword
 			})
 		})
@@ -32,7 +33,8 @@ class SignInComponent extends React.Component{
 		.then(user => {
 			if (user.user_id){
 				this.props.loadUser(user);
-
+			} else {
+				this.setState({errorMsg: 'Incorrect Credentials'})
 			}
 		})
 	}
@@ -42,7 +44,7 @@ render(){
 	 	<div>
 	 		<HomeBackground/>
 	 		<form className="signInForm" action='/' method='post'>
-	 			<div className="welcomeDiv">Please Sign In
+	 			<div className="welcomeDiv">{String(this.state.errorMsg)}
 	 			</div>
 	 			<div className="signInInfoDiv">
 	 				<div className="infoDivSpacer"> </div>

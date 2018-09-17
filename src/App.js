@@ -20,14 +20,15 @@ import './app.css';
 
 const initialState = {
   isSignedIn: false,
-      giftee_name: 'Giftee',
-      user:{
-        user_id: '',
-        name: 'Santa',
-        spouse_id: '',
-        group_id: '',
-        gender: '',
-        giftee_id: '',
+  giftee_name: 'Giftee',
+  roll: true,
+  user:{
+    user_id: '',
+    name: 'Santa',
+    spouse_id: '',
+    group_id: '',
+    gender: '',
+    giftee_id: '',
   }
 }
 
@@ -38,7 +39,8 @@ class App extends Component {
     super();
     this.state = {
       isSignedIn: false,
-      giftee_name: '',
+      giftee_name: 'Giftee',
+      roll: true,
       user:{
         user_id: '',
         name: '',
@@ -60,12 +62,17 @@ class App extends Component {
     if(data){
       const {user_id, name, spouse_id, group_id, gender, giftee_id} = data;
       let giftee_name = this.getGifteeName(giftee_id);
-      if(giftee_name === undefined){giftee_name = 'Giftee';}
+      let roll = false;
+      if(giftee_name === undefined){
+        giftee_name = 'Giftee';
+        roll = true;
+      }
       this.setState({
         isSignedIn: true,
         signInEmail: '',
         signInPassword: '',
         giftee_name,
+        roll,
         user: {
           user_id,
           spouse_id,
@@ -73,8 +80,27 @@ class App extends Component {
           group_id,
           gender
       }})
-    } else {
-      this.setState(this.state)
+    }
+  }
+
+  loadUserGifteeSelect = (data) => {
+    if(data){
+      const {user_id, name, spouse_id, group_id, gender, giftee_id} = data;
+      let giftee_name = this.getGifteeName(giftee_id);
+      if(giftee_name === undefined){giftee_name = 'Giftee';}
+      this.setState({
+        isSignedIn: true,
+        signInEmail: '',
+        signInPassword: '',
+        giftee_name,
+        roll: false,
+        user: {
+          user_id,
+          spouse_id,
+          name,
+          group_id,
+          gender
+      }})
     }
   }
 
@@ -91,14 +117,16 @@ class App extends Component {
       })
       .then(response => response.json())
       .then(data => {
-        this.loadUser(data);
+        if (data !== "Unable to update"){
+          this.loadUserGifteeSelect(data);
+        }
       })
     }
 
 
   render() {
     const { state, loadUser, onGifteeSelect } = this;
-    const { isSignedIn, user, giftee_name  } = state;
+    const { isSignedIn, user, giftee_name, roll } = state;
     const { user_id, name, spouse_id, group_id, gender, giftee_id } = user;
     fetch('https://cherv-secret-santa.herokuapp.com/', {})
 
@@ -114,33 +142,30 @@ class App extends Component {
                   exact path='/' 
                   render={(props) => 
                     <HomeComponent {...props} 
-                      onGifteeSelect={onGifteeSelect} 
-                      user_id={user_id} 
-                      spouse_id={spouse_id} 
-                      group_id={group_id}
+                      onGifteeSelect={onGifteeSelect}
                       giftee_name={giftee_name}
+                      user={user} 
+                      roll={roll}
                     />}
                 />
                 <Route 
                   exact path='/signin' 
                   render={(props) => 
                     <HomeComponent {...props} 
-                      onGifteeSelect={onGifteeSelect} 
-                      user_id={user_id} 
-                      spouse_id={spouse_id} 
-                      group_id={group_id}
+                      onGifteeSelect={onGifteeSelect}
                       giftee_name={giftee_name}
+                      user={user}
+                      roll={roll}
                     />}
                 />
                 <Route 
                   exact path='/register' 
                   render={(props) => 
                     <HomeComponent {...props} 
-                      onGifteeSelect={onGifteeSelect} 
-                      user_id={user_id} 
-                      spouse_id={spouse_id} 
-                      group_id={group_id}
+                      onGifteeSelect={onGifteeSelect}
                       giftee_name={giftee_name}
+                      user={user}
+                      roll={roll}
                     />}
                 />
                 <Route exact path='/mywishlist' component={MyWishListComponent}/>
