@@ -46,7 +46,7 @@ function DiceComponent(props){
       }
 
       const returnDice = () => {
-          if (roll === true && giftee_name === 'Giftee'){
+          if (roll === true){
             return <DieComponent group_id={group_id}/>
           }
       }
@@ -57,6 +57,14 @@ function DiceComponent(props){
           }
       }
 
+      const returnGifteeDice = (roll, giftee_name) => {
+        if (roll === false){
+          return <DieComponent giftee_name={giftee_name}/>
+        }
+      }
+
+      // {giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span>}
+      // <DieComponent group_id={group_id}/> 
 
   return (
     <div id="wrapper">
@@ -64,8 +72,7 @@ function DiceComponent(props){
       <label className="dice-label" id="roll-label" htmlFor="roll"><span></span></label>
       { returnDice(roll, giftee_name) }
       { returnSelectedDice(giftee_name) }
-      { roll === false ? <DieComponent giftee_name={giftee_name}/> : <span></span>}
-        
+      { returnGifteeDice(roll, giftee_name) }
     </div>
   );
 }

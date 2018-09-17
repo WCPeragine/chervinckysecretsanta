@@ -77,7 +77,6 @@ class App extends Component {
         signInEmail: '',
         signInPassword: '',
         giftee_name,
-        roll: false,
         user: {
           user_id,
           spouse_id,
