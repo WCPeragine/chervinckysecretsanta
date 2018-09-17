@@ -35,7 +35,7 @@ class RegisterComponent extends React.Component {
 	onRegisterSubmit = () => {
 		if(this.state.signInPassword === this.state.signInPasswordTwo && this.state.signInPassword.length && this.state.signInPasswordTwo.length){
 			this.setState({errorMsg: 'Attempting To Register'});
-			fetch('https://cherv-secret-santa.herokuapp.com/register', {
+			fetch('https://cherv-db.herokuapp.com/register', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({

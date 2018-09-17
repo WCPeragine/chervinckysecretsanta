@@ -18,22 +18,6 @@ import FooterComponent from './components/footer/FooterComponent';
 import './app.css';
 
 
-const initialState = {
-  isSignedIn: false,
-  giftee_name: 'Giftee',
-  roll: true,
-  user:{
-    user_id: '',
-    name: 'Santa',
-    spouse_id: '',
-    group_id: '',
-    gender: '',
-    giftee_id: '',
-  }
-}
-
-
-
 class App extends Component {
   constructor(){
     super();
@@ -106,7 +90,7 @@ class App extends Component {
 
 
     onGifteeSelect = (user_id, spouse_id, group_id) => {
-      fetch('https://cherv-secret-santa.herokuapp.com/giftee/select', {
+      fetch('https://cherv-db.herokuapp.com/giftee/select', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -128,7 +112,7 @@ class App extends Component {
     const { state, loadUser, onGifteeSelect } = this;
     const { isSignedIn, user, giftee_name, roll } = state;
     const { user_id, name, spouse_id, group_id, gender, giftee_id } = user;
-    fetch('https://cherv-secret-santa.herokuapp.com/', {})
+    fetch('https://cherv-db.herokuapp.com/', {})
 
     return (
 
