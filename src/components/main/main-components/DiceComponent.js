@@ -45,21 +45,33 @@ function DiceComponent(props){
         }
       }
 
+      const returnDice = () => {
+          if (roll === true){
+            return <DieComponent group_id={group_id}/>
+          }
+      }
 
+      const returnSelectedDice = (giftee_name) => {
+        if (roll === true && giftee_name !== 'Giftee'){
+            return <SelectedDieComponent giftee_name={giftee_name}/>
+          }
+      }
+
+      const returnGifteeDice = (roll, giftee_name) => {
+        if (roll === false){
+          return <DieComponent giftee_name={giftee_name}/>
+        }
+      }
 
   return (
     <div id="wrapper">
       <input className="dice-input" id="roll" name="roll" type="checkbox" onClick={diceStop}/>
       <label className="dice-label" id="roll-label" htmlFor="roll"><span></span></label>
-      { roll === true
-        ? <span></span>
-        : giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span> 
-      }
-      { roll === true ? <DieComponent group_id={group_id}/> : <DieComponent giftee_name={giftee_name}/>}
-        
+      { returnDice(roll, giftee_name) }
+      { returnSelectedDice(giftee_name) }
+      { returnGifteeDice(roll, giftee_name) }
     </div>
   );
 }
 
 export default DiceComponent;
-
