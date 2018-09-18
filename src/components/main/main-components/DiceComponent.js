@@ -82,8 +82,4 @@ function DiceComponent(props){
   );
 }
 
-<<<<<<< HEAD
 export default DiceComponent;
-=======
-export default DiceComponent;
->>>>>>> 67162f49d408db1fc6d8f7f31a7ae89a7c0f0ab0
