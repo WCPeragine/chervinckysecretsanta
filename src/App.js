@@ -22,17 +22,17 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      isSignedIn: false,
+      isSignedIn: true,
       giftee_name: 'Giftee',
       roll: true,
       user:{
         user_id: '',
-        name: '',
+        name: 'Chance',
         spouse_id: '',
         group_id: '',
         gender: '',
         giftee_id: '',
-  
+
       }
     }
   }
@@ -121,30 +121,30 @@ class App extends Component {
 
             { isSignedIn
               ?<Switch>
-                <Route 
-                  exact path='/' 
-                  render={(props) => 
-                    <HomeComponent {...props} 
-                      onGifteeSelect={onGifteeSelect}
-                      giftee_name={giftee_name}
-                      user={user} 
-                      roll={roll}
-                    />}
-                />
-                <Route 
-                  exact path='/signin' 
-                  render={(props) => 
-                    <HomeComponent {...props} 
+                <Route
+                  exact path='/'
+                  render={(props) =>
+                    <HomeComponent {...props}
                       onGifteeSelect={onGifteeSelect}
                       giftee_name={giftee_name}
                       user={user}
                       roll={roll}
                     />}
                 />
-                <Route 
-                  exact path='/register' 
-                  render={(props) => 
-                    <HomeComponent {...props} 
+                <Route
+                  exact path='/signin'
+                  render={(props) =>
+                    <HomeComponent {...props}
+                      onGifteeSelect={onGifteeSelect}
+                      giftee_name={giftee_name}
+                      user={user}
+                      roll={roll}
+                    />}
+                />
+                <Route
+                  exact path='/register'
+                  render={(props) =>
+                    <HomeComponent {...props}
                       onGifteeSelect={onGifteeSelect}
                       giftee_name={giftee_name}
                       user={user}
@@ -164,14 +164,14 @@ class App extends Component {
                   exact path='/signin'
                   render={(props) => <SignInComponent {...props} loadUser={loadUser} />}
                 />
-                <Route 
-                  exact path='/register' 
+                <Route
+                  exact path='/register'
                   render={(props) => <RegisterComponent {...props} loadUser={loadUser} />}
                 />
                 <Route component={NotFoundComponent}/>
               </Switch>
             }
-          
+
             <FooterComponent/>
           </div>
         </Router>
