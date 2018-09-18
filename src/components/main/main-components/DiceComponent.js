@@ -40,9 +40,14 @@ function DiceComponent(props){
       if( !btn.checked && roll === true ) {
         die.classList.add("select")
         btnLabel.classList.add("select")
+        die.classList.remove("spin")
         btn.disabled = true;
         onGifteeSelect(user_id, spouse_id, group_id)
-        } else if (roll === false) {
+      } else if ( btn.checked && roll === true ){
+        die.classList.add("spin")
+      } else if ( !die.classList.contains('dance') && roll === false ){
+        die.classList.add("dance");
+      } else if ( roll === false ) {
           die.classList.add("dance");
           die.classList.toggle("pause")
         }
