@@ -42,6 +42,9 @@ function DiceComponent(props){
         btnLabel.classList.add("select")
         btn.disabled = true;
         onGifteeSelect(user_id, spouse_id, group_id)
+        } else if (roll === false) {
+          die.classList.add("dance");
+          die.classList.toggle("pause")
         }
       }
 
@@ -63,9 +66,6 @@ function DiceComponent(props){
         }
       }
 
-      // {giftee_name !== 'Giftee' ? <SelectedDieComponent giftee_name={giftee_name}/> : <span></span>}
-      // <DieComponent group_id={group_id}/> 
-
   return (
     <div id="wrapper">
       <input className="dice-input" id="roll" name="roll" type="checkbox" onClick={diceStop}/>
@@ -78,4 +78,3 @@ function DiceComponent(props){
 }
 
 export default DiceComponent;
-

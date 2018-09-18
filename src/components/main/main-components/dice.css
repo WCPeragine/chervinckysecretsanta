@@ -128,10 +128,83 @@
         rotateX(540deg) rotateY(90deg) rotateZ(90deg); }
 }
 
+@keyframes dance {
+    0% { transform: 
+        translateX(var(--dice-x))
+        translateY(var(--dice-y))
+        translateZ(var(--dice-z))
+        rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    10% { transform: 
+        translateX(var(--dice-x)) translateX(-10vw)
+        translateY(var(--dice-y)) translateY(-20vh)
+        translateZ(var(--dice-z)) translateZ(300px)
+        rotateX(180deg) rotateY(180deg) rotateZ(45deg); }
+    20% { transform: 
+        translateX(var(--dice-x)) translateX(-15vw)
+        translateY(var(--dice-y)) translateY(-20vh)
+        translateZ(var(--dice-z)) translateZ(600px) 
+        rotateX(360deg) rotateY(270deg) rotateZ(90deg); }
+    30% { transform: 
+        translateX(var(--dice-x)) translateX(-10vw)
+        translateY(var(--dice-y)) translateY(-20vh)
+        translateZ(var(--dice-z)) translateZ(300px) 
+        rotateX(450deg) rotateY(360deg) rotateZ(135deg); }
+    40% { transform: 
+        translateX(var(--dice-x)) translateX(30vw) 
+        translateY(var(--dice-y)) translateY(-20vh)
+        translateZ(var(--dice-z)) translateZ(0px) 
+        rotateX(360deg) rotateY(270deg) rotateZ(180deg); }
+    50% { transform: 
+        translateX(var(--dice-x)) translateX(40vw) 
+        translateY(var(--dice-y)) translateY(-20vh)
+        translateZ(var(--dice-z))
+        rotateX(180deg) rotateY(180deg) rotateZ(135deg); }
+    50% { transform: 
+        translateX(var(--dice-x)) translateX(20vw) 
+        translateY(var(--dice-y)) translateY(-40vh)
+        translateZ(var(--dice-z)) translateZ(-300px) 
+        rotateX(360deg) rotateY(90deg) rotateZ(90deg); }
+    60% { transform: 
+        translateX(var(--dice-x)) translateX(0) 
+        translateY(var(--dice-y)) translateY(-60vh)
+        translateZ(var(--dice-z)) translateZ(-600px) 
+        rotateX(450deg) rotateY(0deg) rotateZ(45deg); }
+    70% { transform: 
+        translateX(var(--dice-x-neg)) translateX(-20vw) 
+        translateY(var(--dice-y)) translateY(-80vh)
+        translateZ(var(--dice-z)) translateZ(-900px) 
+        rotateX(540deg) rotateY(90deg) rotateZ(90deg); }
+    80% { transform: 
+        translateX(var(--dice-x-neg)) translateX(-40vw) 
+        translateY(var(--dice-y)) translateY(-100vh)
+        translateZ(var(--dice-z)) translateZ(-1200px) 
+        rotateX(630deg) rotateY(180deg) rotateZ(135deg); }
+    90% { transform: 
+        translateX(var(--dice-x-neg)) translateX(-60vw) 
+        translateY(var(--dice-y)) translateY(-120vh)
+        translateZ(var(--dice-z)) translateZ(-1500px) 
+        rotateX(720deg) rotateY(270deg) rotateZ(180deg); }
+    100% { transform: 
+        translateX(var(--dice-x-neg)) translateX(-80vw) 
+        translateY(var(--dice-y)) translateY(-140vh)
+        translateZ(var(--dice-z)) translateZ(-1800px) 
+        rotateX(630deg) rotateY(180deg) rotateZ(135deg); }
+}
+
 #dice.select {
     animation: fly-away 1.6s linear;
     animation-fill-mode: forwards;
     z-index: 2;
+}
+
+#dice.dance {
+    animation: dance 2s infinite linear;
+    animation-direction: alternate;
+    z-index: 2;   
+}
+
+#dice.pause{
+    animation-play-state: paused; 
 }
 
 #roll-label.select {
