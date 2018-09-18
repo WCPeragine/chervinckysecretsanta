@@ -19,10 +19,14 @@
 }
 
 ul#wishlist-ul {
-	padding: 3vw 3vw 3vw 8vw;
+	padding: 3vw;
 }
 
 li.wishlist-li {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	width: 100%;
 	font-family: 'Pacifico', cursive;
 	list-style-type: none;
 	color: black;
@@ -30,16 +34,37 @@ li.wishlist-li {
 	text-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5);
 
 	font-size: 3vw;
-	line-height: 3.5vw;
+	line-height: 3.5vw
 }
 
-.wishlist-li a {
-	padding: 0;
+a.giftName{
 	color: black;
-	font-size: 1.5vw;
+	width: 80%;
+	text-align: left;
+	margin-left: 3vw;
 }
 
-.wishlist-li label {
+.editBtn{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 10%;
+	padding: 10px 0;
+	align-self: center;
+	margin: auto;
+	border-radius: 8px;
+	font-family:  'Carter One', cursive;
+
+	color: #fff;
+	border: 2px solid #fff;
+	background-color: #ff1a1a;
+	transition-duration: 0.4s;
+}
+
+.editBtn:hover {
+	color: #ff1a1a;
+	border: 2px solid #ff1a1a;
+	background-color: #fff;
 }
 
 @media only screen and (max-width: 1000px){
