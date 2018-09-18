@@ -40,8 +40,16 @@ function DiceComponent(props){
       if( !btn.checked && roll === true ) {
         die.classList.add("select")
         btnLabel.classList.add("select")
+        die.classList.remove("spin")
         btn.disabled = true;
         onGifteeSelect(user_id, spouse_id, group_id)
+      } else if ( btn.checked && roll === true ){
+        die.classList.add("spin")
+      } else if ( !die.classList.contains('dance') && roll === false ){
+        die.classList.add("dance");
+      } else if ( roll === false ) {
+          die.classList.add("dance");
+          die.classList.toggle("pause")
         }
       }
 
@@ -74,4 +82,8 @@ function DiceComponent(props){
   );
 }
 
+<<<<<<< HEAD
 export default DiceComponent;
+=======
+export default DiceComponent;
+>>>>>>> 67162f49d408db1fc6d8f7f31a7ae89a7c0f0ab0
