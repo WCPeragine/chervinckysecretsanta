@@ -3,6 +3,7 @@
 	background-size: cover;
 	margin: auto;
 	width: 50vw;
+	border: 1px solid #fff;
 	border-radius: 10px;
 }
 
@@ -42,6 +43,16 @@ a.giftName{
 	width: 80%;
 	text-align: left;
 	margin-left: 3vw;
+	transition-duration: 0.4s;
+}
+
+a.giftName:hover{
+	color: rgb(4, 166, 65);
+	text-shadow:
+		-1px -1px 0 #fff,
+		1px -1px 0 #fff,
+		-1px 1px 0 #fff,
+		1px 1px 0 #fff;
 }
 
 .editBtn{
@@ -49,15 +60,16 @@ a.giftName{
 	flex-direction: row;
 	justify-content: center;
 	width: 10%;
-	padding: 10px 0;
+	padding: 5px 0;
 	align-self: center;
 	margin: auto;
 	border-radius: 8px;
 	font-family:  'Carter One', cursive;
+	font-size: 1rem;
 
 	color: #fff;
 	border: 2px solid #fff;
-	background-color: #ff1a1a;
+	background-color: rgb(4, 166, 65);
 	transition-duration: 0.4s;
 }
 
@@ -65,6 +77,7 @@ a.giftName{
 	color: #ff1a1a;
 	border: 2px solid #ff1a1a;
 	background-color: #fff;
+	box-shadow: -10px 10px 15px 0 rgba(4, 166, 65,0.76), -10px 15px 30px 0 rgba(4, 166, 65,0.7);
 }
 
 @media only screen and (max-width: 1000px){

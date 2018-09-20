@@ -12,7 +12,7 @@ class SignInComponent extends React.Component{
 		}
 	}
 
-	onEmailChange =(event) => {
+	onEmailChange = (event) => {
 		this.setState({signInEmail: event.target.value});
 	}
 
@@ -53,30 +53,30 @@ render(){
 			 			<label htmlFor="passwordInput" className="signInLabels">Password:</label>
 			 		</div>
 			 		<div className="signInInputsDiv">
-			 			<input 
-			 				name="emailInput" 
+			 			<input
+			 				name="emailInput"
 			 				type="text"
-			 				onChange={this.onEmailChange} 
-			 				className="signInInputs" 
-			 				placeholder="Please Enter Your Email" 
+			 				onChange={this.onEmailChange}
+			 				className="signInInputs"
+			 				placeholder="Please Enter Your Email"
 			 				required
 			 			/>
-			 			<input 
-			 				name="passwordInput" 
-			 				type="password" 
+			 			<input
+			 				name="passwordInput"
+			 				type="password"
 			 				onChange={this.onPasswordChange}
-			 				className="signInInputs" 
-			 				placeholder="Please Enter Your Password" 
+			 				className="signInInputs"
+			 				placeholder="Please Enter Your Password"
 			 				required
 			 			/>
 			 		</div>
 			 		<div className="infoDivSpacer"> </div>
 		 		</div>
 		 		<div className="signInSubmitDiv">
-		 			<input 
-		 				type="button" 
+		 			<input
+		 				type="button"
 		 				onClick={this.onSignInSubmit}
-		 				className="signInSubmit" 
+		 				className="signInSubmit"
 		 				value="Sign In"
 		 			></input>
 		 		</div>

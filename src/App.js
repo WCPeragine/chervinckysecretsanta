@@ -26,11 +26,11 @@ class App extends Component {
       giftee_name: 'Giftee',
       roll: true,
       user:{
-        user_id: '',
+        user_id: '1',
         name: 'Chance',
-        spouse_id: '',
-        group_id: '',
-        gender: '',
+        spouse_id: '2',
+        group_id: '1',
+        gender: 'male',
         giftee_id: '',
 
       }
@@ -151,7 +151,13 @@ class App extends Component {
                       roll={roll}
                     />}
                 />
-                <Route exact path='/mywishlist' component={MyWishListComponent}/>
+                <Route
+                  exact path='/mywishlist'
+                  render={(props) =>
+                    <MyWishListComponent {...props}
+                      user_id={user_id}
+                    />}
+                />
                 <Route exact path='/gifteewishlist' component={GifteeWishListComponent}/>
                 <Route component={NotFoundComponent}/>
               </Switch>
