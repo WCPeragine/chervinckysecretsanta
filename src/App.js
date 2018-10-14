@@ -27,7 +27,7 @@ class App extends Component {
       isSignedIn: false,
       giftee_name: "Giftee",
       roll: true,
-      fetchUrl: "https://cherv-db.herokuapp.com/",
+      fetchUrl: "https://cherv-secret-santa.herokuapp.com/",
       user: {
         user_id: "1",
         name: "Chance",
