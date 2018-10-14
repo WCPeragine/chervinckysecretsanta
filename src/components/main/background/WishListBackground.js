@@ -3,7 +3,7 @@ import './background.css';
 
 function WishListBackground (){
  return (
- 	<img className="background background-center" src="lights-background.jpg" alt ="">
+ 	<img className="background background-center" src="wishlist-background-2.jpg" alt ="">
  	</img>
  )
 }
