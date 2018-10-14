@@ -1,41 +1,47 @@
+:root {
+  --pressEnter: " ";
+  --pressEnterSize: 0.5rem;
+  --green: #04a641;
+  --red: #ff1a1a;
+  --white: #f6f4f3;
+  --black: #464655;
+}
+
 #not-found-component {
 }
 
 #not-found-div {
-	min-height: 60vh;
-	display: flex;
-	flex-direction: column;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #not-found {
-	flex: 1 1 auto;
- 	display: flex;
-  	justify-content: center;
-	font-family: 'Carter One', cursive;
-  	color: white;
- 	text-align: center;
-  	text-shadow:
-    	-1px -1px 0 #000,  
-    	1px -1px 0 #000,
-    	-1px 1px 0 #000,
-    	1px 1px 0 #000;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  font-family: "Carter One", cursive;
+  color: white;
+  text-align: center;
+  text-shadow: -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222,
+    1px 1px 0 #222;
 }
 
 #candy-cane {
-	padding: 0 2vw;
+  padding: 0 2vw;
 }
 
 #oh-no {
-	align-self: center;
-	font-size: 2vw;
+  align-self: center;
+  font-size: 2vw;
 }
 
 h1 {
-	margin: 3vh;
+  margin: 3vh;
 }
 
-@media only screen and (min-aspect-ratio: 17/10) and (max-width: 1000px){
-	h1{
-		margin: 0;
-	}
+@media only screen and (min-aspect-ratio: 17/10) and (max-width: 1000px) {
+  h1 {
+    margin: 0;
+  }
 }
