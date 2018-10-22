@@ -2,21 +2,31 @@ import React from "react";
 import WishListBackground from "./background/WishListBackground";
 import "./css/wishlist.css";
 import NewItemButton from "./wishlist-components/NewItemButton";
-import Arrows from "./arrow";
+import Arrows from "./Arrow";
+import DeleteSvg from "./DeleteSvg";
+import DeleteDialog from "./wishlist-components/DeleteDialog";
 
 //Needs to be made into separate react component eventually
 function BuildListHtml(props) {
-  const { li, index, onArrowClick } = props;
+  const { li, index, onArrowClick, alterSvgPath } = props;
   const { gift_rank, gift_link, gift_name, comments } = li;
   const item_comment = `Additional comments: ${comments}`;
   const isLink = gift_link.length;
+  const dKey = `delete${index}`;
+  const aKey = `arrow${index}`;
   if (isLink) {
     return (
       <li className="wishlist-li" data-index={index}>
+        <DeleteSvg
+          className="deleteBtn"
+          alterSvgPath={alterSvgPath}
+          key={dKey}
+          index={index}
+        />
         <Arrows
           className="arrows"
           onArrowClick={onArrowClick}
-          key={index}
+          key={aKey}
           index={index}
         />
         <a
@@ -34,10 +44,16 @@ function BuildListHtml(props) {
   } else {
     return (
       <li className="wishlist-li" data-index={index}>
+        <DeleteSvg
+          className="deleteBtn"
+          alterSvgPath={alterSvgPath}
+          key={dKey}
+          index={index}
+        />
         <Arrows
           className="arrows"
           onArrowClick={onArrowClick}
-          key={index}
+          key={aKey}
           index={index}
         />
         <p
@@ -59,9 +75,12 @@ class MyWishListComponent extends React.Component {
     this.state = {
       user_id: props.user_id,
       listArr: [],
+      deleteDialogOpen: false,
+      currentItemName: "",
+      currentBtn: {},
       fetchUrl: props.fetchUrl
     };
-    this.addToList = this.addToList.bind(this);
+    this.alterList = this.alterList.bind(this);
   }
 
   onArrowClick = event => {
@@ -146,11 +165,131 @@ class MyWishListComponent extends React.Component {
       });
   };
 
-  addToList = newItem => {
+  alterList = (item, operator) => {
     const { listArr } = this.state;
-    const newList = listArr.map(x => x);
-    newList.push(newItem);
-    this.setState({ listArr: newList });
+    if (operator === "add") {
+      const newList = listArr.map(x => x);
+      newList.push(item);
+      this.setState({ listArr: newList });
+    } else if (operator === "remove") {
+      let newList = listArr.map(x => x);
+      newList.splice(item.gift_rank - 1, 1);
+      this.setState({ listArr: newList });
+    }
+  };
+
+  onDeleteOrCancel = deleteOrCancel => {
+    const { currentItem: item, currentBtn: btn } = this.state;
+    let currentState = Number(btn.dataset.currentState);
+    switch (deleteOrCancel) {
+      case "delete":
+        btn.setAttribute(
+          "d",
+          "M95 210 c0,0 20,-15 120,90 c0,0 0,0 0,0 l0,0 c0,0 -30,-30 160,-175 l0,0 c0,0 -15,-5 1,-75 l0,0 c0,0 0,0 0,0 l0,0 c0,0 -30,-30 -165,175 c0,0 -10,0 -40,-60 l0,0 c0,0 0,0 -75,44 Z m130, 100 c0,0 0,0 0,0 c0,0 0,0 0,0 Z"
+        );
+        btn.setAttribute("fill", "#04a641");
+        this.onItemRemove(item);
+        currentState = 0;
+        this.setState({
+          deleteDialogOpen: false,
+          currentItem: {},
+          currentItemName: "",
+          currentBtn: {}
+        });
+        break;
+      case "cancel":
+        btn.setAttribute(
+          "d",
+          "M225 175 c0,0, 0,0 -75,125 c0,0 0,0 50,0 l50,-90 c0,0 0,0 50,90 l50,0 c0,0 0,0 -75,-125 l75, -125 c0,0 0,0 -50,0 l-50,90 c0,0 0,0 -50,-90 c0,0 0,0 -50,0 l75,125 c0,0 0,0 0,0 Z m25,150 c0,0 0,0 0,0 c0,0 0,0 0,0 Z"
+        );
+        btn.setAttribute("fill", "#ff1a1a");
+        currentState = 0;
+        break;
+    }
+    btn.dataset.currentState = currentState;
+  };
+
+  onDeleteDialogResponse = event => {
+    const id = String(event.target.id.slice(0, 6));
+    this.onDeleteOrCancel(id);
+    this.setState({ deleteDialogOpen: false });
+  };
+
+  //currentState 0=X 1=? 2=check
+
+  alterSvgPath = event => {
+    const btn = event.target;
+    const id = event.target.id;
+    const gift_rank = Number(id.slice(id.length - 1, id.length)) + 1;
+    const selector = `a[data-index='${gift_rank -
+      1}'], p[data-index='${gift_rank - 1}']`;
+    const elem = document.querySelector(selector);
+    const gift_name = elem.dataset.name;
+    const item = {
+      gift_name: gift_name,
+      gift_rank: gift_rank,
+      elem: elem
+    };
+    let currentState = Number(btn.dataset.currentState);
+    switch (currentState) {
+      case 0:
+        btn.setAttribute(
+          "d",
+          "M225 100 c-30,-65 50,-65 35,0 c-4,30 -19,50 -40,77 l0,0 c-20,30 -10,80 32,62 l3,-18 c0,0 -25,0 -16,-20 l0,0 c5,-9 5,-9 16,-20 l0,0 c110,-75 60,-145 0,-147 c-20,0 -80,0 -83,50 l0,0 c0,18 20,39 53,15 Z m15, 154 c33,0 33,50 0,50 c-33,0 -33,-50 0,-50 Z"
+        );
+        btn.setAttribute("fill", "#f6f4f3");
+        currentState++;
+        this.setState({
+          deleteDialogOpen: true,
+          currentItem: item,
+          currentItemName: String(gift_name),
+          currentBtn: btn
+        });
+        break;
+    }
+    btn.dataset.currentState = currentState;
+  };
+
+  itemRemoveWait = (item, alterList, btn) => {
+    setTimeout(function() {
+      alterList(item, "remove");
+      btn.setAttribute(
+        "d",
+        "M225 175 c0,0, 0,0 -75,125 c0,0 0,0 50,0 l50,-90 c0,0 0,0 50,90 l50,0 c0,0 0,0 -75,-125 l75, -125 c0,0 0,0 -50,0 l-50,90 c0,0 0,0 -50,-90 c0,0 0,0 -50,0 l75,125 c0,0 0,0 0,0 Z m25,150 c0,0 0,0 0,0 c0,0 0,0 0,0 Z"
+      );
+      btn.setAttribute("fill", "#ff1a1a");
+      let currentState = 0;
+      btn.dataset.currentState = currentState;
+    }, 2000);
+  };
+
+  onItemRemove = item => {
+    const { state, setState } = this;
+    const { user_id, fetchUrl, listArr, currentBtn } = state;
+    const { gift_name, gift_rank } = item;
+    let confirmationList = listArr.map(x => x);
+    confirmationList[gift_rank - 1].gift_name = "Loading";
+    this.setState({ listArr: confirmationList });
+    fetch(String(fetchUrl) + "wishlist/user/remove", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user_id,
+        gift_name,
+        gift_rank
+      })
+    })
+      .then(response => response.json())
+      .then(newMsg => {
+        if (newMsg === "Wishlist Updated!") {
+          confirmationList[gift_rank - 1].gift_name = "Deleted";
+          this.setState({ listArr: confirmationList });
+          this.itemRemoveWait(item, this.alterList, currentBtn);
+        }
+      });
   };
 
   buildList = () => {
@@ -161,15 +300,10 @@ class MyWishListComponent extends React.Component {
         li={li}
         index={index}
         onArrowClick={this.onArrowClick}
+        alterSvgPath={this.alterSvgPath}
       />
     ));
     return listHtml;
-  };
-
-  parentReload = () => {
-    const { reload } = this.state;
-    this.setState({ reload: !reload });
-    console.log(this.state.reload);
   };
 
   componentDidMount() {
@@ -177,17 +311,27 @@ class MyWishListComponent extends React.Component {
   }
 
   render() {
+    const { state, alterList, onDeleteDialogResponse } = this;
+    const { user_id, fetchUrl, deleteDialogOpen, currentItemName } = state;
     return (
       <div>
         <WishListBackground />
         <div id="wishlist-container">
+          {deleteDialogOpen ? (
+            <DeleteDialog
+              onDeleteDialogResponse={onDeleteDialogResponse}
+              currentItemName={currentItemName}
+            />
+          ) : (
+            <span className="none" />
+          )}
           <div />
-          <div id="parchment" data-pressEnter="">
+          <div id="parchment">
             <ul id="wishlist-ul">
               {this.buildList()}
               <NewItemButton
                 user_id={this.state.user_id}
-                addToList={this.addToList}
+                alterList={this.alterList}
                 fetchUrl={this.state.fetchUrl}
               />
             </ul>

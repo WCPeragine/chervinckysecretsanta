@@ -13,7 +13,6 @@ class NewItemButton extends React.Component {
       gift_link: "",
       comments: "",
       isMoreOptions: false,
-      getList: props.getList,
       fetchUrl: props.fetchUrl
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -91,9 +90,9 @@ class NewItemButton extends React.Component {
   };
 
   onItemSubmit = event => {
-    const { gift_name, gift_link, comments, user_id, getList } = this.state;
+    const { gift_name, gift_link, comments, user_id, fetchUrl } = this.state;
     const giftLength = document.getElementsByClassName("giftName").length;
-    const newItem = {
+    const item = {
       gift_name: gift_name,
       gift_link: gift_link,
       comments: comments,
@@ -101,7 +100,7 @@ class NewItemButton extends React.Component {
     };
     if (gift_name.length) {
       this.setState({ msg: "Loading" });
-      fetch(String(this.state.fetchUrl) + "wishlist/user/add", {
+      fetch(String(fetchUrl) + "wishlist/user/add", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +117,7 @@ class NewItemButton extends React.Component {
         .then(response => response.json())
         .then(newMsg => {
           this.setState({ msg: newMsg });
-          this.props.addToList(newItem);
+          this.props.alterList(item, "add");
         })
         .then(() => {
           this.setState({
@@ -182,7 +181,7 @@ class NewItemButton extends React.Component {
             comments={comments}
           />
         ) : (
-          <span id="none" />
+          <span className="none" />
         )}
         <span className="advancedBtnContainer">
           <input
