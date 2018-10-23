@@ -34,7 +34,7 @@ class App extends Component {
         spouse_id: "2",
         group_id: "1",
         gender: "male",
-        giftee_id: ""
+        giftee_id: 1
       }
     };
   }
@@ -73,7 +73,8 @@ class App extends Component {
           spouse_id,
           name,
           group_id,
-          gender
+          gender,
+          giftee_id
         }
       });
     }
@@ -96,7 +97,8 @@ class App extends Component {
           spouse_id,
           name,
           group_id,
-          gender
+          gender,
+          giftee_id
         }
       });
     }
@@ -193,8 +195,13 @@ class App extends Component {
               <Route
                 exact
                 path="/gifteewishlist"
-                component={GifteeWishListComponent}
-                fetchUrl={fetchUrl}
+                render={props => (
+                  <GifteeWishListComponent
+                    {...props}
+                    giftee_id={giftee_id}
+                    fetchUrl={fetchUrl}
+                  />
+                )}
               />
               <Route component={NotFoundComponent} />
             </Switch>

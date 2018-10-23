@@ -2,72 +2,8 @@ import React from "react";
 import WishListBackground from "./background/WishListBackground";
 import "./css/wishlist.css";
 import NewItemButton from "./wishlist-components/NewItemButton";
-import Arrows from "./Arrow";
-import DeleteSvg from "./DeleteSvg";
+import BuildListHtml from "./wishlist-components/BuildListHtml";
 import DeleteDialog from "./wishlist-components/DeleteDialog";
-
-//Needs to be made into separate react component eventually
-function BuildListHtml(props) {
-  const { li, index, onArrowClick, alterSvgPath } = props;
-  const { gift_rank, gift_link, gift_name, comments } = li;
-  const item_comment = `Additional comments: ${comments}`;
-  const isLink = gift_link.length;
-  const dKey = `delete${index}`;
-  const aKey = `arrow${index}`;
-  if (isLink) {
-    return (
-      <li className="wishlist-li" data-index={index}>
-        <DeleteSvg
-          className="deleteBtn"
-          alterSvgPath={alterSvgPath}
-          key={dKey}
-          index={index}
-        />
-        <Arrows
-          className="arrows"
-          onArrowClick={onArrowClick}
-          key={aKey}
-          index={index}
-        />
-        <a
-          href={gift_link}
-          target="_blank"
-          className="giftName"
-          data-index={index}
-          data-name={gift_name}
-          title={item_comment}
-        >
-          {String(gift_name)}
-        </a>
-      </li>
-    );
-  } else {
-    return (
-      <li className="wishlist-li" data-index={index}>
-        <DeleteSvg
-          className="deleteBtn"
-          alterSvgPath={alterSvgPath}
-          key={dKey}
-          index={index}
-        />
-        <Arrows
-          className="arrows"
-          onArrowClick={onArrowClick}
-          key={aKey}
-          index={index}
-        />
-        <p
-          className="giftName"
-          data-index={index}
-          data-name={gift_name}
-          title={item_comment}
-        >
-          {String(gift_name)}
-        </p>
-      </li>
-    );
-  }
-}
 
 class MyWishListComponent extends React.Component {
   constructor(props) {
@@ -113,36 +49,6 @@ class MyWishListComponent extends React.Component {
     if (giftUp !== undefined) {
       this.setDatabaseList(giftUp, giftDown, this.state.user_id, listArr);
     }
-  };
-
-  getList = user_id => {
-    fetch(String(this.state.fetchUrl) + "wishlist/user", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id })
-    })
-      .then(response => response.json())
-      .then(data => {
-        this.sortList(data);
-      });
-  };
-
-  sortList = data => {
-    const sortedData = data.sort((a, b) => {
-      const nameA = a.gift_rank;
-      const nameB = b.gift_rank;
-      switch (nameA > nameB) {
-        case true:
-          return 1;
-        case false:
-          return -1;
-        default:
-          return 0;
-      }
-    });
-    this.setState({
-      listArr: sortedData
-    });
   };
 
   setDatabaseList = (giftUp, giftDown, user_id, listArr) => {
@@ -289,6 +195,36 @@ class MyWishListComponent extends React.Component {
           this.setState({ listArr: confirmationList });
           this.itemRemoveWait(item, this.alterList, currentBtn);
         }
+      });
+  };
+
+  sortList = data => {
+    const sortedData = data.sort((a, b) => {
+      const nameA = a.gift_rank;
+      const nameB = b.gift_rank;
+      switch (nameA > nameB) {
+        case true:
+          return 1;
+        case false:
+          return -1;
+        default:
+          return 0;
+      }
+    });
+    this.setState({
+      listArr: sortedData
+    });
+  };
+
+  getList = user_id => {
+    fetch(String(this.state.fetchUrl) + "wishlist/user", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id })
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.sortList(data);
       });
   };
 
